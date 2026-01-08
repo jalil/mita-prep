@@ -4,19 +4,24 @@ import React, { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { ArrowLeft, AlertCircle, CheckCircle2, RefreshCw, ChevronRight } from "lucide-react";
 import { getMistakes, clearMistake, Mistake } from "@/lib/progress";
+import { useAuth } from "@/components/providers/AuthProvider";
 import { modules } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
 export default function MistakesPage() {
+    const { user } = useAuth();
     const [mistakes, setMistakes] = useState<Mistake[]>([]);
 
     useEffect(() => {
-        setMistakes(getMistakes());
+        if (!user) return;
+        setMistakes(getMistakes(user.id));
 
-        const handleUpdate = () => setMistakes(getMistakes());
+        const handleUpdate = () => {
+            if (user) setMistakes(getMistakes(user.id));
+        };
         window.addEventListener("mistakes-updated", handleUpdate);
         return () => window.removeEventListener("mistakes-updated", handleUpdate);
-    }, []);
+    }, [user]);
 
     const mistakeList = useMemo(() => {
         return mistakes.map(m => {
@@ -50,7 +55,7 @@ export default function MistakesPage() {
     }, [mistakes]);
 
     const handleClear = (weekId: number, questionId: string) => {
-        clearMistake(weekId, questionId);
+        if (user) clearMistake(user.id, weekId, questionId);
     };
 
     return (
