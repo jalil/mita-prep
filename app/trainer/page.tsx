@@ -228,8 +228,7 @@ export default function TrainerPage() {
                         <PassageViewer
                             title={currentScenario.title}
                             content={currentScenario.content}
-                            wordCount={currentScenario.wordCount}
-                            fontSize="medium"
+                            onCopyAttempt={() => { }}
                         />
                     </div>
                 </div>
@@ -250,9 +249,10 @@ export default function TrainerPage() {
                         <div className="flex-1">
                             <InputArea
                                 key={key}
-                                questionId={`training_${currentScenario.id}`}
                                 placeholder="Type your paraphrase here. Remember: Change the structure, keep the meaning."
-                                minWords={10}
+                                minWordCount={10}
+                                onSubmit={handleNext}
+                                onPasteAttempt={() => { }}
                             />
                         </div>
                     </div>
