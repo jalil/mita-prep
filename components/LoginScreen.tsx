@@ -58,7 +58,7 @@ export function LoginScreen() {
                                 setUsername(e.target.value);
                                 setError("");
                             }}
-                            placeholder="e.g. Jalil"
+                            placeholder="Enter your name"
                             className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all font-medium"
                             autoFocus
                         />
