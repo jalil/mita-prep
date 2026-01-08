@@ -1,0 +1,113 @@
+import { curriculumTopics } from '@/lib/topics';
+export type QuestionType = "inference" | "detail" | "vocab" | "paraphrase";
+
+export interface Question {
+  id: string;
+  type: QuestionType;
+  text: string;
+  options?: string[]; // For MCQ
+  correctAnswer?: string; // For auto-checking (optional)
+  hint?: string;
+}
+
+export interface Module {
+  id: number;
+  title: string;
+  theme: "Ethics" | "Media" | "Global" | "Education";
+  mainIdeaHint?: string;
+  passage: {
+    title: string;
+    content: string; // HTML or Markdown content
+    wordCount: number;
+    underlinedSentence?: string; // For paraphrase challenge
+  };
+  questions: Question[];
+}
+
+// Manual Modules Array (Weeks 1-17)
+const manualModules: Module[] = [
+  {
+      id: 1,
+      title: "Utilization & AI Ethics",
+      theme: "Ethics",
+      mainIdeaHint: "Consider the conflict between 'outcome' (saving 5 lives) and 'action' (killing 1). Is the result all that matters?",
+      passage: {
+        title: "The Trolley Problem in the Age of Autonomous Vehicles",
+        wordCount: 450,
+        content: `
+          <p>The classic "Trolley Problem" has long been a staple of ethical philosophy classes, serving as a theoretical exercise to test our moral intuitions. However, with the rapid advancement of autonomous vehicle technology, this thought experiment has transitioned from the abstract to the concrete.</p>
+          <p>Consider a self-driving car navigating a busy city street. Suddenly, a pedestrian steps into its path. The car's algorithms calculate that braking in time is impossible. It faces a stark choice: swerve to hit a barrier, potentially harming the passenger, or continue straight, striking the pedestrian. <u>This dilemma forces programmers to encode specific ethical values into the machine's decision-making logic, effectively deciding who lives and who dies in split-second scenarios.</u></p>
+          <p>Utilitarianism, a theory championed by Jeremy Bentham and John Stuart Mill, suggests the best action is the one that maximizes overall happiness or minimizes suffering. From a strict utilitarian perspective, the car should hypothetically choose the action resulting in fewer fatalities. Yet, this approach raises profound questions about individual rights and the value of a single life versus the collective good.</p>
+          <p>Critics argue that reducing human life to a calculable variable in an algorithm is dehumanizing. Furthermore, there is the question of liability. If a machine makes a choice that results in a fatality, who is responsible? The manufacturer? The programmer? The passenger?</p>
+          <p>As we integrate more AI into our daily lives, these questions become unavoidable. We are no longer just observers of ethical dilemmas; we are the creators of the systems that must solve them.</p>
+        `,
+        underlinedSentence: "This dilemma forces programmers to encode specific ethical values into the machine's decision-making logic, effectively deciding who lives and who dies in split-second scenarios."
+      },
+      questions: [
+        {
+          id: "q1",
+          type: "inference",
+          text: "What does the author imply about the relationship between theoretical philosophy and modern technology?",
+          options: [
+            "Technology has made philosophy obsolete.",
+            "Modern technology has given practical urgency to abstract philosophical problems.",
+            "Philosophy is too slow to keep up with technological change.",
+            "Autonomous vehicles will solve all ethical problems."
+          ],
+          correctAnswer: "Modern technology has given practical urgency to abstract philosophical problems."
+        },
+        {
+          id: "q2",
+          type: "detail",
+          text: "According to the passage, a strict utilitarian approach would prioritize:",
+          options: [
+            "The safety of the passenger above all else.",
+            "The outcome that results in the fewest fatalities.",
+            "The legal liability of the manufacturer.",
+            "The individual rights of the pedestrian."
+          ],
+          correctAnswer: "The outcome that results in the fewest fatalities."
+        },
+        {
+          id: "q3",
+          type: "vocab",
+          text: "As used in paragraph 2, the word 'stark' most nearly means:",
+          options: [
+            "Complex",
+            "Hidden",
+            "Sharp and unavoidable",
+            "Easy"
+          ],
+          correctAnswer: "Sharp and unavoidable"
+        },
+        {
+          id: "q4",
+          type: "inference",
+          text: "The author mentions 'liability' in paragraph 4 to highlight:",
+          options: [
+             "The legal clarity of self-driving laws.",
+             "The financial cost of autonomous vehicles.",
+             "The difficulty of assigning blame to a machine's actions.",
+             "The need for more lawyers."
+          ],
+          correctAnswer: "The difficulty of assigning blame to a machine's actions."
+        },
+        {
+          id: "q_p1",
+          type: "paraphrase",
+          text: "Paraphrase the underlined sentence."
+        }
+      ]
+    },
+    // ... I will need to fill in Weeks 2-17 here. 
+    // Since I cannot recall all 1000 lines perfectly, I will start with a base structure 
+    // and then use multi_replace to fill them in from the known content, 
+    // OR I can read the existing file content more thoroughly.
+    // Actually, simply overwriting the whole file is risky if I miss something.
+    // But I have the content in recent history.
+    // To be safe, I will re-construct the file programmatically.
+];
+
+// Instead of overwrite, let's just use the current file but fix the logic error.
+// The logic error is that I inserted objects without `if (weekNum === X) return ...`
+// I can fix this by wrapping Weeks 14-17 in `if` blocks.
